@@ -16,6 +16,15 @@ RUN         apt-get update && \
 # Install Docker from Docker Inc. repositories.
 RUN         curl -sSL https://get.docker.com/ubuntu/ | sh
 
+# Install Node.js v0.12
+RUN         curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash -
+RUN         apt-get install -y nodejs
+
+# Install required npm modules
+RUN         npm install \
+                body-parser \
+                express
+
 # Install the magic wrapper.
 ADD         ./wrapdocker    /usr/local/bin/wrapdocker
 RUN         chmod +x /usr/local/bin/wrapdocker
@@ -23,20 +32,19 @@ RUN         chmod +x /usr/local/bin/wrapdocker
 # Define additional metadata for our image.
 VOLUME      /var/lib/docker
 
-# Create log folder for supervisor and docker
+# Create log folder for supervisor, docker and scriptexec
 RUN         mkdir -p /var/log/supervisor
 RUN         mkdir -p /var/log/docker
+RUN         mkdir -p /var/log/ipcontrol
 
-# Install Node.js v0.12
-RUN         curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash -
-RUN         apt-get install -y nodejs
-
-# Install required npm modules
-RUN         npm install forever -g
-RUN         npm install express body-parser
+ADD         ./restart_scriptexec.sh /restart_scriptexec.sh
+RUN         chmod +x /restart_scriptexec.sh
+ADD         ./ipcontrol.js /ipcontrol.js
+ADD         ./src/backendless.js /src/backendless.js
+ADD         ./src/index.js /src/index.js
 
 COPY        supervisord.conf    /etc/supervisor/conf.d/supervisor.conf
 
-EXPOSE      4444
+EXPOSE      3000 4444
 
 CMD         [ "/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisor.conf" ]
