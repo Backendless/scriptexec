@@ -1,3 +1,6 @@
+# docker build -t scadge/scriptexec .
+# docker run --privileged -d -p 4444 -e PORT=4444 scadge/scriptexec
+
 FROM        ubuntu:14.04
 MAINTAINER  scadgek@live.com
 
@@ -23,6 +26,14 @@ VOLUME      /var/lib/docker
 # Create log folder for supervisor and docker
 RUN         mkdir -p /var/log/supervisor
 RUN         mkdir -p /var/log/docker
+
+# Install Node.js v0.12
+RUN         curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash -
+RUN         apt-get install -y nodejs
+
+# Install required npm modules
+RUN         npm install forever -g
+RUN         npm install express body-parser
 
 COPY        supervisord.conf    /etc/supervisor/conf.d/supervisor.conf
 
