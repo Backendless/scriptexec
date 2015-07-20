@@ -1,6 +1,3 @@
-# docker build -t scadge/scriptexec .
-# docker run --privileged -d -p 4444 -e PORT=4444 scadge/scriptexec
-
 FROM        ubuntu:14.04
 MAINTAINER  scadgek@live.com
 
