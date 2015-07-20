@@ -87,7 +87,7 @@ app.post( '/restriction/:containerIp/add', function ( req, res )
     res.end();
 } );
 
-var server = app.listen( 3000, function ()
+var server = app.listen( 3000, '0.0.0.0', function ()
 {
     var host = server.address().address;
     var port = server.address().port;
