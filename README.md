@@ -1,2 +1,4 @@
 # scriptexec
-Node.js script execution system for [Backendless](https://backendless.com/).
+[Node.js](https://nodejs.org/) script execution system for [Backendless](https://backendless.com/).
+
+The system consists of Docker-inside-Docker, responsible for executing Node.js scripts in containers, and the External Host Controller - a Node.js script, which controls containers' access to external hosts using [iptables](https://www.wikiwand.com/en/Iptables). Each container starts a Node.js web server, which initializes [Backendless Javascript Client Library](https://backendless.com/backend-as-a-service/downloads/) for the current application, so that the users don't need to do it in their scripts. The initial script also implements the execution time restriction accordingly to the customer's billing plan. The users' scripts are executed on request, by requiring the script and calling its `run` function, passing it the request and response objects.
