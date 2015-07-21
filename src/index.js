@@ -1,3 +1,5 @@
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0'; //fix for https
+
 var express = require( 'express' );
 var app = express();
 app.listen( process.argv[2], '0.0.0.0' );
