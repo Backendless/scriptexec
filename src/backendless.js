@@ -388,9 +388,9 @@
                     buffer += chunk;
                 });
                 res.on('end', function () {
-                    var callback = config.asyncHandler[res.statusCode >= 200 && res.statusCode < 300 ? "success" :  "fault" ];
+                    var callback = config.asyncHandler[res.statusCode >= 200 && res.statusCode < 300 ? "success" : "fault"];
 
-                    if(Utils.isFunction(callback)) {
+                    if (Utils.isFunction(callback)) {
                         callback(buffer);
                     }
                 })
@@ -408,7 +408,7 @@
     Backendless._ajax = isBrowser() ? Backendless._ajax_for_browser : Backendless._ajax_for_nodejs;
 
     var getClassName = function () {
-        if( this.prototype && this.prototype.___class )
+        if (this.prototype && this.prototype.___class)
             return this.prototype.___class;
 
         var instStringified = (Utils.isFunction(this) ? this.toString() : this.constructor.toString()),
@@ -1263,13 +1263,14 @@
         },
 
         _getUserFromResponse: function (user) {
+            Backendless.LocalCache.set("current-user-id", user.objectId);
+
             var newUser = new Backendless.User();
             for (var i in user) {
                 if (user.hasOwnProperty(i)) {
                     if (i == 'user-token') {
                         if (Backendless.LocalCache.get("stayLoggedIn")) {
                             Backendless.LocalCache.set("user-token", user[i]);
-                            Backendless.LocalCache.set("current-user-id", newUser.objectId );
                         }
                         continue;
                     }
@@ -1277,9 +1278,9 @@
                 }
             }
             return newUser
-        }
-        ,
-        loggedInUser: function() {
+        },
+
+        loggedInUser: function () {
             return Backendless.LocalCache.get("current-user-id");
         },
 
@@ -1991,7 +1992,7 @@
                     isAsync: isAsync,
                     asyncHandler: responder
                 };
-            if(geoPoint){
+            if (geoPoint) {
                 data.data = JSON.stringify(geoPoint);
             }
             return Backendless._ajax(data);
@@ -2201,8 +2202,8 @@
             for (var k = 0; k < self._trackedFences.length; k++) {
                 var isInFence = self._isDefiniteRect(self._trackedFences[k].nwPoint, self._trackedFences[k].sePoint) && self._isPointInFence(coords, self._trackedFences[k]),
                     rule = null;
-                if (isInFence != lastResults[self._trackedFences[k].geofenceName]){
-                    if ( lastResults[self._trackedFences[k].geofenceName] ){
+                if (isInFence != lastResults[self._trackedFences[k].geofenceName]) {
+                    if (lastResults[self._trackedFences[k].geofenceName]) {
                         rule = 'onexit';
                     } else {
                         rule = 'onenter';
@@ -2224,9 +2225,9 @@
                             self._timers[self._trackedFences[savedK].geofenceName] = setTimeout(callBack, duration);
                         };
                     if (GeoFenceCallback) {
-                        if(rule == 'onenter') {
+                        if (rule == 'onenter') {
                             GeoFenceCallback[rule](self._trackedFences[k].geofenceName, self._trackedFences[k].objectId, coords.latitude, coords.longitude);
-                            if(duration > -1) {
+                            if (duration > -1) {
                                 (function (k, coords, duration) {
                                     return timeoutFuncInApp(k, coords, duration)
                                 })(k, coords, duration);
@@ -2240,9 +2241,9 @@
                     } else if (geoPoint) {
                         geoPoint.latitude = coords.latitude;
                         geoPoint.longitude = coords.longitude;
-                        if(rule == 'onenter') {
-                            self._runFenceAction(rule, self._trackedFences[k].geofenceName, geoPoint ,async);
-                            if(duration > -1) {
+                        if (rule == 'onenter') {
+                            self._runFenceAction(rule, self._trackedFences[k].geofenceName, geoPoint, async);
+                            if (duration > -1) {
                                 (function (k, coords, duration, geoPoint) {
                                     return timeoutFuncRemote(k, coords, duration, geoPoint)
                                 })(k, coords, duration, geoPoint);
@@ -2251,7 +2252,7 @@
                             }
                         } else {
                             clearTimeout(self._timers[self._trackedFences[k].geofenceName]);
-                            self._runFenceAction(rule, self._trackedFences[k].geofenceName, geoPoint ,async);
+                            self._runFenceAction(rule, self._trackedFences[k].geofenceName, geoPoint, async);
                         }
                     }
                 }
@@ -2284,8 +2285,8 @@
             function _containsByPropName(collection, object, name) {
                 var length = collection.length,
                     result = false;
-                for(var i = 0; i < length; i++) {
-                    if(result = collection[i][name] === object[name]){
+                for (var i = 0; i < length; i++) {
+                    if (result = collection[i][name] === object[name]) {
                         break;
                     }
                 }
@@ -2306,7 +2307,8 @@
                     enableHighAccuracy: true
                 });
             }
-            if(!this.monitoringId) {
+
+            if (!this.monitoringId) {
                 if (fences.length) {
                     this.monitoringId = (!this._mobilecheck()) ? setInterval(getCurPos, self._maxDuration) : navigator.geolocation.watchPosition(getPosition, errorCallback, {
                         timeout: self._maxDuration,
@@ -3480,7 +3482,7 @@
                     this.messagesCount = 0;
                 }
 
-                this.flushInterval = setTimeout(sendAjax, time*1000);
+                this.flushInterval = setTimeout(sendAjax, time * 1000);
             }
 
             request(this.logInfo, this.timeFrequency);
@@ -3535,7 +3537,8 @@
         }
     };
 
-    function CustomServices() {}
+    function CustomServices() {
+    }
 
     CustomServices.prototype = {
         invoke: function (serviceName, serviceVersion, method, parameters, async) {
