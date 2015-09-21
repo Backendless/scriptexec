@@ -34,16 +34,19 @@ app.all( '*', function ( request, response )
 
         // shutdown in 5 seconds if function is being executed more than this time
         // works for non-blocking operations only!
-        setTimeout( function ()
+        if( typeof timeout == 'number')
         {
-            if( !response.headersSent )
-            {
-                response.status( 504 ).send( {
-                    'code': 6020,
-                    'message': "Script has timed out before producing a response. Script URL - " + scriptpath
-                } );
-            }
-        }, timeout * 1000 );
+            setTimeout( function ()
+                        {
+                            if( !response.headersSent )
+                            {
+                                response.status( 504 ).send( {
+                                    'code': 6020,
+                                    'message': "Script has timed out before producing a response. Script URL - " + scriptpath
+                                } );
+                            }
+                        }, timeout * 1000 );
+        }
 
         onUncaughtExceptionListener = onUncaughtExceptionListener || function (err)
         {
