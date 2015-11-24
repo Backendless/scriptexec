@@ -4,7 +4,7 @@ var express = require( 'express' );
 var app = express();
 app.listen( process.argv[2], '0.0.0.0' );
 
-var timeout = process.argv[3];
+var timeout = parseInt( process.argv[3] );
 var serverUrl = process.argv[4];
 var applicationId = process.argv[5];
 var secretKey = process.argv[6];
