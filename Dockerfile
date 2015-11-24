@@ -11,7 +11,7 @@ RUN         apt-get update && \
                 supervisor
 
 # Install Docker from Docker Inc. repositories.
-RUN         curl -sSL https://get.docker.com/ubuntu/ | sh
+RUN         curl -sSL https://get.docker.com/ | sh
 
 # Install Node.js v0.12
 RUN         curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash -
