@@ -17,7 +17,7 @@ echo "Unregistering script executor..."
 curl -H Content-Type:application/json -d '{"dockerHost":"'$MY_HOST'"}' -X DELETE http://$SERVER_ADDRESS/scriptexec/nodejs
 
 echo "Stopping docker containers..."
-docker ps -a -q | xargs --no-run-if-empty docker kill
+docker ps -a -q | xargs --no-run-if-empty docker stop
 echo "Removing docker containers..."
 docker ps -a -q | xargs --no-run-if-empty docker rm
 
