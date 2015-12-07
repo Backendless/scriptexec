@@ -32,9 +32,9 @@ app.all( '*', function ( request, response )
         delete require.cache[require.resolve( scriptpath )]; // clean cache for this entry to be loaded again
         code = require( scriptpath ); // execute user's method
 
-        // shutdown in 5 seconds if function is being executed more than this time
+        // shutdown in <timeout> seconds if function is being executed more than this time
         // works for non-blocking operations only!
-        if( typeof timeout == 'number')
+        if( timeout > 0 )
         {
             setTimeout( function ()
                         {
