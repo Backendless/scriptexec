@@ -23,7 +23,7 @@ docker ps -a -q | xargs --no-run-if-empty docker rm
 
 echo "Redownloading image..."
 docker images -q | xargs --no-run-if-empty docker rmi
-docker pull scadge/alpine-nodejs
+docker pull scadge/alpine-nodejs-xml2js
 
 echo "Flushing iptables..."
 iptables -F
