@@ -20,7 +20,8 @@ RUN         apt-get install -y nodejs
 # Install required npm modules
 RUN         npm install \
                 body-parser \
-                express
+                express \
+                backendless
 
 # Install the magic wrapper.
 ADD         ./wrapdocker    /usr/local/bin/wrapdocker
@@ -37,7 +38,6 @@ RUN         mkdir -p /var/log/ipcontrol
 ADD         ./restart_scriptexec.sh /restart_scriptexec.sh
 RUN         chmod +x /restart_scriptexec.sh
 ADD         ./ipcontrol.js /ipcontrol.js
-ADD         ./src/backendless.js /src/backendless.js
 ADD         ./src/index.js /src/index.js
 
 COPY        supervisord.conf    /etc/supervisor/conf.d/supervisor.conf
