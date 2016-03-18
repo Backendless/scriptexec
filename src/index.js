@@ -10,7 +10,7 @@ var applicationId = process.argv[5];
 var secretKey = process.argv[6];
 var version = process.argv[7];
 
-global.Backendless = require( './backendless' );
+global.Backendless = require( 'backendless' );
 Backendless.serverURL = serverUrl;
 Backendless.initApp( applicationId, secretKey, version );
 
