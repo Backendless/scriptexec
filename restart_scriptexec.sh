@@ -29,6 +29,10 @@ echo "Flushing iptables..."
 iptables -F
 iptables -A FORWARD -d 10.0.0.0/8 -j ACCEPT
 iptables -A FORWARD -d 172.0.0.0/8 -j ACCEPT
+iptables -A FORWARD -d 149.56.79.124 -j ACCEPT
+iptables -A FORWARD -d 167.114.222.170 -j ACCEPT
+iptables -A FORWARD -d 149.56.79.127 -j ACCEPT
+iptables -A FORWARD -d 167.114.166.192 -j ACCEPT
 
 echo "Registering script executor..."
 curl -H Content-Type:application/json -d '{"dockerHost":"'$MY_HOST'"}' -X POST http://$SERVER_ADDRESS/scriptexec/nodejs
